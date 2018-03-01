@@ -152,7 +152,7 @@ type[<?php echo "".$row['type']."" ?>].selected = true;//选中
 				</div>
 				<div class="mdui-container">
 					<h2 style="text-align: center;">主播守则</h2>
-					<h2 style="text-align: center;">直播群群号：544510551</h2>
+					<h2 style="text-align: center;">直播群群号：</h2>
 					<h3 style="text-align: center;">★任何一名优秀的播主，都应该遵守以下准则！★</h3>
 					<h4 style="text-align: center;">本站所有直播内容必须遵守《互联网电子公告服务管理规定》，不得发表诽谤他人；侵犯他人隐私；侵犯他人知识产权；政治言论；商业讯息；低俗内容等信息；禁止一切存在色情、血腥 、暴力以及有擦边球嫌疑的内容节目；不得播放或转播版权类型的影视剧以及体育比赛等内容 。恶意违反规定者将导致您的账号被封停，并且我们还将保留追究相应的法律责任的权利。</h4>
 					<h4 style="text-align: center;">开通直播即代表已同意Live—はな使用协议，请勿上传和直播任何色情、暴力、反动信息！</h4>
