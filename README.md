@@ -1,6 +1,7 @@
 # 简易直播网   Live--はな
 因为是随便瞎写的，所以文件命名规范是根本不存在的<br>
 因为是放在校园内网工作的，所以几乎没有做安全防护措施<br>
+邮箱激活画师<a href="https://www.pixiv.net/member.php?id=12235859" target:"_blank">@Teemodisi</a>
 使用了MDUI<br>
 使用了bootstrap-material-design<br>
 使用了video.js<br>
