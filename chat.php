@@ -60,9 +60,15 @@ type[<?php echo "".$row['type']."" ?>].selected = true;//选中
 					<span id="chatOnline"></span>
 			</div>
 			<div class="panel-body" id="chatcontent" style="height: 530px;margin-top: 5px;overflow: scroll;word-break: break-all;overflow-x: hidden;"></div>
+			<?php if($username==$user&&$row['livestats']=='checked'){  ?>
 			<input type="text" class="mdui-container panel panel-default" id="userMsg" style="width:100%;height: 100px;">
 		</div>
 		<button class="mdui-fab mdui-ripple mdui-color-pink mdui-fab-fixed" id="btn_chatsend" mdui-tooltip="{content: '发送', position: 'left'}"><i class="mdui-icon material-icons">send</i></button>
+		<?php } 
+			if($username!=$user){?>
+				<div class="mdui-container mdui-text-center panel panel-default" style="height: 100px;width: 100%;">你不是这个房间的主人哦</div>
+	<?php		}?>
+			
 	</body>
 </html>
 <script>
