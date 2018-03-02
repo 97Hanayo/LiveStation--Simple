@@ -15,12 +15,14 @@
 		<link rel="stylesheet" href="mdui-v0.4.0/css/mdui.css">
 		<script src="js/jquery-3.2.1.min.js"></script>
 		<script src="danmu/socket.io-1.3.7.js"></script>
+		<script src="danmu/danmaku.min.js"></script>
 		<script src="pic/js/bootstrap.min.js"></script>
 		<script src="mdui-v0.4.0/js/mdui.min.js" ></script>
 		<meta charset="UTF-8">
 		<title>是一个独立的聊天窗口</title>
 	</head>
 	<body>
+        <input id="colsel" type="hidden" style="color: white;">
 							<?php if($username==$user&&$row['livestats']=='checked'){  ?>
 			<form method="post" name="set" action="liveset.php">
 			<div class="mdui-container" style="margin-top: 10px;">
@@ -57,7 +59,7 @@ type[<?php echo "".$row['type']."" ?>].selected = true;//选中
 					<i class="mdui-icon material-icons">face</i>&nbsp;&nbsp;
 					<span id="chatOnline"></span>
 			</div>
-			<div class="panel-body" id="chatcontent" style="height: 530px;margin-top: -10px;"></div>
+			<div class="panel-body" id="chatcontent" style="height: 530px;margin-top: 5px;overflow: scroll;word-break: break-all;overflow-x: hidden;"></div>
 			<input type="text" class="mdui-container panel panel-default" id="userMsg" style="width:100%;height: 100px;">
 		</div>
 		<button class="mdui-fab mdui-ripple mdui-color-pink mdui-fab-fixed" id="btn_chatsend" mdui-tooltip="{content: '发送', position: 'left'}"><i class="mdui-icon material-icons">send</i></button>
