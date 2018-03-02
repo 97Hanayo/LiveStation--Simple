@@ -8,6 +8,7 @@
 	<body class="padding-top mdui-appbar-with-toolbar">
 	<?php
 		include('navi.php');
+		require_once "db/conn.php";
 	$verify = stripslashes(trim($_GET['verify'])); 
 	$nowtime = time(); 
 	$query = mysqli_query($aVar,"select ID,resetpwdtime from live where `pwdtoken`='$verify'"); 
@@ -17,7 +18,6 @@
       	    echo "<script>alert('您的激活有效期已过，请登录您的帐号重新发送激活邮件.');location='javascript:history.go(-1)';</script>"; 
     	}else{ 
     		include('pwd.php');
-    		require_once "db/conn.php";
 			$db = getDB();
     		if(isset($_POST['submit'])){
     			@$password = $_POST['password'];
