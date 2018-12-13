@@ -20,24 +20,40 @@
 		<script src="mdui-v0.4.0/js/mdui.min.js" ></script>
 		<meta charset="UTF-8">
 		<title>是一个独立的聊天窗口</title>
+		<script>
+			function insert() {
+   $.ajax({
+    type: "POST",//方法
+    url: "liveset.php" ,//表单接收url
+    data: $('#set').serializeArray(),
+    success: function () {
+     //提交成功的提示词或者其他反馈代码
+    },
+    error : function() {
+     //提交失败的提示词或者其他反馈代码
+     alert("false")
+    }
+   });
+  }
+		</script>
 	</head>
 	<body>
         <input id="colsel" type="hidden" style="color: white;">
 							<?php if($username==$user&&$row['livestats']=='checked'){  ?>
-			<form method="post" name="set" action="liveset.php">
+			<form method="post" id="set" name="set" action="##" onsubmit="return false">
 			<div class="mdui-container" style="margin-top: 10px;">
 				<div>
       			<label class="mdui-switch">
       				<span>首页显示</span>&nbsp;&nbsp;
-        			<input type="checkbox" name="indexshow" value="checked" <?php echo "".$row['indexshow']."" ?>>
+        			<input type="checkbox" onclick="insert()" id="indexshow" name="indexshow" value="checked" <?php echo "".$row['indexshow']."" ?>>
         			<i class="mdui-switch-icon"></i>
 				</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
       			<label class="mdui-switch">
       				<span>游客发言</span>&nbsp;&nbsp;
-        			<input type="checkbox" name="guestsay" value="checked" <?php echo "".$row['guestsay']."" ?>>
+        			<input type="checkbox" onclick="insert()" id="guestsay" name="guestsay" value="checked" <?php echo "".$row['guestsay']."" ?>>
         			<i class="mdui-switch-icon"></i>
       			</label>
-      			<select class="mdui-select" mdui-select id="type" name="type" style="margin-left: 30px;margin-top: 0px;text-align: center;">
+      			<select class="mdui-select" onchange="insert()" mdui-select id="type" name="type" style="margin-left: 30px;margin-top: 0px;text-align: center;">
     				<option value="0">选择分类才能首页显示</option>
   					<option value="1">网络游戏</option>
   					<option value="2">单机游戏</option>
@@ -49,7 +65,7 @@
 var  type = document.getElementById('type');
 type[<?php echo "".$row['type']."" ?>].selected = true;//选中
 </script>
-      			<button class="mdui-btn mdui-color-pink" type="submit" name="room" style="margin-left: 20px;">提交</button>
+      			<!--<input class="mdui-btn mdui-color-pink" type="button" name="room" style="margin-left: 20px;" onclick="insert()" value="提交"></input>-->
       			</div>
       		</div>
       		</form>

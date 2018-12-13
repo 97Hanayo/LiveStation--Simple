@@ -14,7 +14,7 @@
 			@$username=$_SESSION["username"];
 			include_once ("db/conn.php");
 			$db = getDB();
-			$sql = "select ID,username,email,email_active,QQ,pic,bk,userdetail,rtmp_url,livedetail,livestats,type from live where username='$username'";
+			$sql = "select ID, username,email,email_active,QQ,pic,bk,userdetail,rtmp_url,hls_url,livedetail,livestats,type from live where username='$username'";
 			$query = mysqli_query($aVar,$sql); 
 			$row = mysqli_fetch_array($query);
 			include('navi.php');

@@ -16,7 +16,7 @@
 		}
 	})
 
-	var socket = io.connect('ws://127.0.0.1:2121'); //服务器地址
+	var socket = io.connect('wss://www.hanayo.club:2121'); //服务器地址
 
 	socket.on('connect',function(data){
 		socket.emit('join',{

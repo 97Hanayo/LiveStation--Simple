@@ -23,17 +23,17 @@
 		$stmt->bindparam(3,$username);
 		$stmt->execute();
 		
-	$smtpserver = "#";//SMTP服务器
-	$smtpserverport =465;//SMTP服务器端口
-	$smtpusermail = "#";//SMTP服务器的用户邮箱
+	$smtpserver = "localhost";//SMTP服务器
+	$smtpserverport =25;//SMTP服务器端口
+	$smtpusermail = "  ";//SMTP服务器的用户邮箱
 	$smtpemailto = $email;//发送给谁
-	$smtpuser = "#";//SMTP服务器的用户帐号，注：部分邮箱只需@前面的用户名
-	$smtppass = "#";//SMTP服务器的用户密码
+	$smtpuser = " ";//SMTP服务器的用户帐号，注：部分邮箱只需@前面的用户名
+	$smtppass = " ";//SMTP服务器的用户密码
     $users = array($email);
     $mailtitle = '这是一个重置密码的邮件';
     $mailcontent = "你为什么会忘记密码啊(σ｀д′)σ<br/>这个是给你重置的链接<br/>
-    <a href='/resetpwd.php?verify=".$pwdtoken."' target=
-'_blank'>/resetpwd.php?verify=".$pwdtoken."</a><br/>
+    <a href='http://www.hanayo.club/resetpwd.php?verify=".$pwdtoken."' target=
+'_blank'>http://www.hanayo.club/resetpwd.php?verify=".$pwdtoken."</a><br/>
     保质期一小时，过期就不能再用了";
     $mailtype = "HTML";
     $smtp = new Smtp($smtpserver,$smtpserverport,true,$smtpuser,$smtppass);//这里面的一个true是表示使用身份验证,否则不使用身份验证.

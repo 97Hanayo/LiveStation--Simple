@@ -31,8 +31,8 @@ echo"<script>alert('用户名不符合规定呢');location='javascript:history.g
 	elseif(strlen($password) < 8){  
     echo"<script>alert('密码不符合规定呢');location='javascript:history.go(-1)';</script>";  
 }  
-	elseif(!preg_match('/^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/i', $email)){  
-    echo"<script>alert('邮箱格式不对');location='javascript:history.go(-1)';</script>";  
+	elseif(!preg_match('/^([0-9A-Za-z\\-_\\.]+)*@scse\.com\.cn$/i', $email)){  
+    echo"<script>alert('都说了只能用华软邮箱啦');location='javascript:history.go(-1)';</script>";  
 } 
 	elseif($checkuser->fetch(1)){
 		echo"<script>alert('用户名有一样的呢');location='javascript:history.go(-1)';</script>";

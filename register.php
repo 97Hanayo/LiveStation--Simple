@@ -21,7 +21,7 @@
   			<div class="form-group">
     			<label for="email">电子邮箱</label>
     			<input type="email" class="form-control" name="email" aria-describedby="emailHelp" placeholder="example@scse.com.cn" required="required">
-    			<small id="emailHelp" class="form-text text-muted">不然会收不到验证码呢</small>
+    			<small id="emailHelp" class="form-text text-muted">只能用华软邮箱哦不然会收不到验证码呢</small>
   			</div>
   			<div class="form-group">
     			<label for="pwd">密码</label>

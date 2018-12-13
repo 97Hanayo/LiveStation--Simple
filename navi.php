@@ -8,8 +8,8 @@
 				<a href="javascript:location.reload();" class="mdui-btn mdui-btn-icon mdui-ripple" mdui-tooltip="{content: '刷新'}">
 					<i class="mdui-icon material-icons">refresh</i>
 				</a>
-				<?php if(isset($_SESSION['username'])&&($_SESSION['username'])=='admin'){?>
-				<a href="admin.php" class="mdui-btn mdui-btn-icon mdui-ripple" mdui-tooltip="{content: '控制台'}">
+				<?php if(isset($_SESSION['username'])&&($_SESSION['username'])=='Hanayo'){?>
+				<a href="myself.php" class="mdui-btn mdui-btn-icon mdui-ripple" mdui-tooltip="{content: '控制台'}">
 					<i class="mdui-icon material-icons" >settings</i>
 				</a>
 					<?php } ?>

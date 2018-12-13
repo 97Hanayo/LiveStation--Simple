@@ -24,6 +24,8 @@
 		}else{
 			$row = $result->fetch(1);
 				$_SESSION['username'] = $row['username'];
+				$session_id = session_id();
+				setcookie('PHPSESSID', $session_id, time()+7*24*3600);
 			echo "<script>location='javascript:history.go(-1)';</script>";
 	//header("Location:index.php");
 		}

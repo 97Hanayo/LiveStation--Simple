@@ -26,7 +26,7 @@
         	echo "<div class='mdui-center' style='margin-top:30px;width:1132px;height:623px;background:url(img/active.png)'></div>"; 
     	} 
 	}else{ 
-    	echo "<div class='mdui-center' style='margin-top:30px;width:1132px;height:623px;background:url(img/error.png)'></div>";     
+    		echo "<div class='mdui-center' style='margin-top:30px;width:1132px;height:623px;background:url(img/error.png)'></div>";          
 	} 
 ?>
 	</body>

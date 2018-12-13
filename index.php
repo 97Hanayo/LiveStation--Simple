@@ -2,6 +2,7 @@
 <html>
 	<head>
 		<link rel="stylesheet" href="mdui-v0.4.0/css/mdui.css" />
+		<link rel="stylesheet" href="live2d/l2d.css"  />
 		<script src="mdui-v0.4.0/js/mdui.js" ></script>
 		<script src="js/jquery-3.2.1.min.js"></script>
 		<script src="js/jquery.cookie.js"></script>
@@ -10,9 +11,12 @@
 		<title>Live--はな&nbsp;&nbsp;&nbsp;&nbsp;首页</title>
 	</head>
 	<body class="padding-top mdui-appbar-with-toolbar ">
-	
+	<div class="waifu">
+    	<div class="waifu-tips"></div>
+    	<canvas id="live2d" width="280" height="280" class="live2d"></canvas>
+	</div>
 	<script type="text/javascript">
-	var socket = io.connect('ws://127.0.0.1:2121'); //服务器地址
+	var socket = io.connect('wss://www.hanayo.club:2121'); //服务器地址
 //初始化页面时验证是否记住了用户名
 	$(document).ready(function() {
     if ($.cookie("remember") == "true") {
@@ -62,10 +66,10 @@
 			 if(!isset($_SESSION['username'])){?>
 		<div class="mdui-color-pink-accent mdui-center" style="height: 230px;width: 700px;">
 			<h1 class="mdui-p-t-1 mdui-p-l-2">还不是会员？</h1>
-			<p class="mdui-p-t-1 mdui-p-l-2">戳一下<a href="register.php"><button class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-pink-200 mdui-text-color-white">这里</button></a>即可开始注册(●'◡'●)登录后可以看到更多秘密哦</p>
+			<p class="mdui-p-t-1 mdui-p-l-2">戳一下<a href="register.php"><button class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-pink-200 mdui-text-color-white">注册</button></a>即可开始注册(●'◡'●)登录后可以看到更多秘密哦</p>
 			<h3 class="mdui-p-t-1 mdui-p-l-2">已经是会员了？</h3>
 			<p class="mdui-p-t-1 mdui-p-l-2">戳一下
-				<button class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-pink-200 mdui-text-color-white" mdui-dialog="{target: '#login'}">这里</button>马上登录φ(゜▽゜*)♪
+				<button class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-pink-200 mdui-text-color-white" mdui-dialog="{target: '#login'}">登录</button>马上登录φ(゜▽゜*)♪
 			</p>
 					<?php
 						include('login_form.php');
@@ -89,7 +93,7 @@
 					if($row1['indexshow']=='checked'){
 			?>
 			<a href="room.php?name=<?php echo "".$row1['username']."" ?>">
-    			<div class="mdui-col" style="margin-top:10px;">
+    			<div class="mdui-col" style="margin-top:10px;height:450px">
       				<div class="mdui-card mdui-hoverable">
         				<div class="mdui-card-header">
           					<img class="mdui-card-header-avatar" src="<?php echo "".$row1['pic']."" ?>">  <!--头像-->
@@ -133,7 +137,7 @@
 					if($row2['indexshow']=='checked'){
 			?>
 			<a href="room.php?name=<?php echo "".$row2['username']."" ?>">
-    			<div class="mdui-col" style="margin-top:10px;">
+    			<div class="mdui-col" style="margin-top:10px;height:450px">
       				<div class="mdui-card mdui-hoverable">
         				<div class="mdui-card-header">
           					<img class="mdui-card-header-avatar" src="<?php echo "".$row2['pic']."" ?>">  <!--头像-->
@@ -177,7 +181,7 @@
 					if($row3['indexshow']=='checked'){
 			?>
 			<a href="room.php?name=<?php echo "".$row3['username']."" ?>">
-    			<div class="mdui-col" style="margin-top:10px;">
+    			<div class="mdui-col" style="margin-top:10px;height:450px">
       				<div class="mdui-card mdui-hoverable">
         				<div class="mdui-card-header">
           					<img class="mdui-card-header-avatar" src="<?php echo "".$row3['pic']."" ?>">  <!--头像-->
@@ -221,7 +225,7 @@
 					if($row4['indexshow']=='checked'){
 			?>
 			<a href="room.php?name=<?php echo "".$row4['username']."" ?>">
-    			<div class="mdui-col" style="margin-top:10px;">
+    			<div class="mdui-col" style="margin-top:10px;height:450px">
       				<div class="mdui-card mdui-hoverable">
         				<div class="mdui-card-header">
           					<img class="mdui-card-header-avatar" src="<?php echo "".$row4['pic']."" ?>">  <!--头像-->
@@ -265,7 +269,7 @@
 					if($row5['indexshow']=='checked'){
 			?>
 			<a href="room.php?name=<?php echo "".$row5['username']."" ?>">
-    			<div class="mdui-col" style="margin-top:10px;">
+    			<div class="mdui-col" style="margin-top:10px;height:450px">
       				<div class="mdui-card mdui-hoverable">
         				<div class="mdui-card-header">
           					<img class="mdui-card-header-avatar" src="<?php echo "".$row5['pic']."" ?>">  <!--头像-->
@@ -300,5 +304,107 @@
 			</div>
 		</div>
 <?php		include('footer.php');    ?>
+		 <script>
+ 
+!function(){
+ 
+function n(n,e,t){
+ 
+return n.getAttribute(e)||t
+ 
+}
+ 
+function e(n){
+ 
+return document.getElementsByTagName(n)
+ 
+}
+ 
+function t(){
+ 
+var t=e("script"),o=t.length,i=t[o-1];
+ 
+return{
+ 
+l:o,z:n(i,"zIndex",-1),o:n(i,"opacity",.5),c:n(i,"color","0,0,0"),n:n(i,"count",99)
+ 
+}
+ 
+}
+ 
+function o(){
+ 
+a=m.width=window.innerWidth||document.documentElement.clientWidth||document.body.clientWidth,
+ 
+c=m.height=window.innerHeight||document.documentElement.clientHeight||document.body.clientHeight
+ 
+}
+ 
+function i(){
+ 
+r.clearRect(0,0,a,c);
+ 
+var n,e,t,o,m,l;
+ 
+s.forEach(function(i,x){
+ 
+for(i.x+=i.xa,i.y+=i.ya,i.xa*=i.x>a||i.x<0?-1:1,i.ya*=i.y>c||i.y<0?-1:1,r.fillRect(i.x-.5,i.y-.5,1,1),e=x+1;e<u.length;e++)n=u[e],
+ 
+null!==n.x&&null!==n.y&&(o=i.x-n.x,m=i.y-n.y,
+ 
+l=o*o+m*m,l<n.max&&(n===y&&l>=n.max/2&&(i.x-=.03*o,i.y-=.03*m),
+ 
+t=(n.max-l)/n.max,r.beginPath(),r.lineWidth=t/2,r.strokeStyle="rgba("+d.c+","+(t+.2)+")",r.moveTo(i.x,i.y),r.lineTo(n.x,n.y),r.stroke()))
+ 
+}),
+ 
+x(i)
+ 
+}
+ 
+var a,c,u,m=document.createElement("canvas"),
+ 
+d=t(),l="c_n"+d.l,r=m.getContext("2d"),
+ 
+x=window.requestAnimationFrame||window.webkitRequestAnimationFrame||window.mozRequestAnimationFrame||window.oRequestAnimationFrame||window.msRequestAnimationFrame||
+ 
+function(n){
+ 
+window.setTimeout(n,1e3/45)
+ 
+},
+ 
+w=Math.random,y={x:null,y:null,max:2e4};m.id=l,m.style.cssText="position:fixed;top:0;left:0;z-index:"+d.z+";opacity:"+d.o,e("body")[0].appendChild(m),o(),window.onresize=o,
+ 
+window.onmousemove=function(n){
+ 
+n=n||window.event,y.x=n.clientX,y.y=n.clientY
+ 
+},
+ 
+window.onmouseout=function(){
+ 
+y.x=null,y.y=null
+ 
+};
+ 
+for(var s=[],f=0;d.n>f;f++){
+ 
+var h=w()*a,g=w()*c,v=2*w()-1,p=2*w()-1;s.push({x:h,y:g,xa:v,ya:p,max:6e3})
+ 
+}
+ 
+u=s.concat([y]),
+ 
+setTimeout(function(){i()},100)
+ 
+}();
+ 
+</script>
+<script async src="live2d/waifu-tips.js"></script>
+<script src="live2d/live2d.js"></script>
+<script type="text/javascript">
+    loadlive2d("live2d", "live2d/Untitled Model.model.json");
+</script>
 	</body>
 </html>

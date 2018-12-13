@@ -4,7 +4,7 @@
 	@$user = $_SESSION['username'];
 	include_once ("db/conn.php");
 	$db = getDB();
-	$sql = "select username,email,email_active,QQ,pic,bk,userdetail,rtmp_url,livedetail,livestats,guestsay,indexshow,type from live where username='$username'";
+	$sql = "select username,email,email_active,QQ,pic,bk,userdetail,rtmp_url,hls_url,livedetail,livestats,guestsay,indexshow,type from live where username='$username'";
 	$query = mysqli_query($aVar,$sql); 
 	$row = mysqli_fetch_array($query);
 ?>
@@ -14,18 +14,35 @@
 		<link rel="stylesheet" href="danmu/jquery.cxcolor.css">
 		<link rel="stylesheet" href="pic/css/bootstrap.min.css">
 		<link rel="stylesheet" href="mdui-v0.4.0/css/mdui.css">
-		<link rel="stylesheet" href="rtmp/video-js_2.css">
+		<link rel="stylesheet" href="rtmp/video-js.css">
 		<script src="js/jquery-3.2.1.min.js"></script>
 		<script src="js/jquery.cookie.js"></script>
 		<script src="danmu/socket.io-1.3.7.js"></script>
 		<script src="danmu/danmaku.min.js"></script>
 		<script src="pic/js/bootstrap.min.js"></script>
-		<script src="rtmp/screenfull.min.js"></script><!--全屏-->
 		<script src="danmu/jquery.cxcolor.js"></script>
-		<script src="rtmp/video_2.js"></script>
+		<script src="rtmp/screenfull.min.js"></script>
+		<script src="rtmp/video.js"></script>
+		<script src="rtmp/videojs-contrib-hls.js"></script>
 		<script src="mdui-v0.4.0/js/mdui.js" ></script>
 		<meta charset="UTF-8">
 		<title>来自<?php echo $username ?>---直播间</title>
+				<script>
+			function insert() {
+   $.ajax({
+    type: "POST",//方法
+    url: "liveset.php" ,//表单接收url
+    data: $('#set').serializeArray(),
+    success: function () {
+     //提交成功的提示词或者其他反馈代码
+    },
+    error : function() {
+     //提交失败的提示词或者其他反馈代码
+     alert("false")
+    }
+   });
+  }
+		</script>
 	</head>
 	<body class="padding-top mdui-appbar-with-toolbar">
 <script type="text/javascript">
@@ -75,7 +92,7 @@
 			<div id="fullscreen-div">
                 <div id="dm-container" style="width:800px;height:450px;">
                     <video autoplay="autoplay" id="example_video_1" class="video-js vjs-default-skin" controls preload="none" width="800" height="450" data-setup="{}" style="position: absolute;z-index: 0;">
-                        <source type="rtmp" src="<?php echo "".$row['rtmp_url']."" ?>">
+			<source type="application/x-mpegURL" src="<?php echo "".$row['hls_url']."" ?>">
                         <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
                     </video>
                 </div>
@@ -108,19 +125,19 @@
             
   			<div class="mdui-container">
   				<?php if($username==$user&&$row['livestats']=='checked'){  ?>
-			<form method="post" action="liveset.php">
+			<form method="post" id="set" name="set" action="##" onsubmit="return false">
 			<div class="mdui-container"  style="width: 330px;height: 200px;margin-left: 840px;margin-top: -600px;">
       			<label class="mdui-switch" style="margin-left: 30px;">
       				<span>首页显示</span>&nbsp;&nbsp;
-        			<input type="checkbox" name="indexshow" value="checked" <?php echo "".$row['indexshow']."" ?>>
+        			<input type="checkbox" onclick="insert()" id="indexshow" name="indexshow" value="checked" <?php echo "".$row['indexshow']."" ?>>
         			<i class="mdui-switch-icon"></i>
       			</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
       			<label class="mdui-switch">
       				<span>游客发言</span>&nbsp;&nbsp;
-        			<input type="checkbox" name="guestsay" value="checked" <?php echo "".$row['guestsay']."" ?>>
+        			<input type="checkbox" onclick="insert()" id="guestsay" name="guestsay" value="checked" <?php echo "".$row['guestsay']."" ?>>
         			<i class="mdui-switch-icon"></i>
       			</label>
-      			<select class="mdui-select" mdui-select id="type" name="type" style="text-align: center;margin-left: 35px;">
+      			<select class="mdui-select" onchange="insert()" mdui-select id="type" name="type" style="text-align: center;margin-left: 35px;">
     				<option value="0">选择分类才能首页显示</option>
   					<option value="1">网络游戏</option>
   					<option value="2">单机游戏</option>
@@ -132,7 +149,7 @@
 var  type = document.getElementById('type');
 type[<?php echo "".$row['type']."" ?>].selected = true;//选中
 </script>
-      			<button class="mdui-btn mdui-color-pink" type="submit" name="room" style="margin-top: -80px;margin-left: -360px;">一定要提交哦</button>
+      			<!--<button class="mdui-btn mdui-color-pink" type="submit" name="room" style="margin-top: -80px;margin-left: -360px;">一定要提交哦</button>-->
       		</div>
       		</form>
       		<div class="panel panel-default" style="width: 330px;height: 484px;margin-left: 780px;margin-top: -84px;overflow: scroll;word-break: break-all;overflow-x: hidden;" id="chatcontent">
@@ -162,16 +179,16 @@ type[<?php echo "".$row['type']."" ?>].selected = true;//选中
 	<?php		include('footer.php');    ?>
 	</body>
 </html>
-<script>
-	window.onload = function () {  
-        var s = document.cookie;  
-        if (s.indexOf('myad=1') != -1) return; //存在cookie退出下面代码的执行  
-        var d = new Date();  
-        d.setHours(d.getHours() + 24); //有效期24小时  
-        document.cookie = 'myad=1;expires='+d.toGMTString();//设置cookie  
-        alert('由于技术太菜（；´д｀）ゞ，ESC退出全屏时会导致网页排版错位，所以大家全屏之后记得按全屏按钮退出，等我学一下新技术再来解决这个问题（如果我还活着');
-   }  
-</script>
+//<script>
+//	window.onload = function () {  
+//        var s = document.cookie;  
+//        if (s.indexOf('myad=1') != -1) return; //存在cookie退出下面代码的执行  
+//        var d = new Date();  
+//        d.setHours(d.getHours() + 24); //有效期24小时  
+//        document.cookie = 'myad=1;expires='+d.toGMTString();//设置cookie  
+//        alert('由于技术太菜（；´д｀）ゞ，退出全屏的快捷键是“空格键”和“空格键”，ESC退出会有排版问题');
+//   }  
+//</script>
 <script>
 	(function(){
 	var color=$("#color_d");
@@ -226,13 +243,13 @@ type[<?php echo "".$row['type']."" ?>].selected = true;//选中
 		if(num%2==0)
 		{
 			rr.style.background = 'pink';
-			video.style.zIndex='0';
+			$("#example_video_1").css("z-index",0);
 			num=0;
 		}
 		else
 		{
 			rr.style.background = 'lightgray';
-			video.style.zIndex='1';
+			$("#example_video_1").css("z-index",1);
 		}
 	};
 </script>
